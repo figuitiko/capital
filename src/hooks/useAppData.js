@@ -10,6 +10,7 @@ export const useAppData = (initialState) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!appData) return
     if (appData.includes(formData)) {
       setIsDuplicate(true)
       setTimeout(() => {
@@ -22,6 +23,10 @@ export const useAppData = (initialState) => {
     setFormData('')
     e.target.reset()
   }
+  const handleRemoveData = (word) => {
+    const newData = appData.filter((item) => item !== word)
+    setAppData(newData)
+  }
   const appDataTostring = appData.join(', ')
-  return { appDataTostring, formData, isDuplicate, handleChange, handleSubmit }
+  return { appData, appDataTostring, formData, isDuplicate, handleChange, handleSubmit, handleRemoveData }
 }
