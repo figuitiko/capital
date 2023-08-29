@@ -27,6 +27,15 @@ export const useAppData = (initialState) => {
     const newData = appData.filter((item) => item !== word)
     setAppData(newData)
   }
+  const handleOnBlurData = (word, newWord) => {
+    if (!newWord) return
+    const indexOfWord = appData.indexOf(word)
+    if (indexOfWord === -1) return
+    const firstPart = appData.slice(0, indexOfWord)
+    const secondPart = appData.slice(indexOfWord + 1)
+    const newData = [...firstPart, newWord, ...secondPart]
+    setAppData(newData)
+  }
   const appDataTostring = appData.join(', ')
-  return { appData, appDataTostring, formData, isDuplicate, handleChange, handleSubmit, handleRemoveData }
+  return { appData, appDataTostring, formData, isDuplicate, handleChange, handleSubmit, handleRemoveData, handleOnBlurData }
 }
